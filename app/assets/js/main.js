@@ -6,6 +6,7 @@ const dateElement = document.querySelector('.date');
 const timeElement = document.querySelector('.time');
 const list = document.querySelector('.list');
 const input = document.querySelector('.add-item__input');
+const inputButton = document.querySelector('.add-item__button');
 
 // Variables
 let LIST = [];
@@ -15,6 +16,26 @@ let id = 0;
 const CHECK = 'assets/svg/check-circle.svg';
 const UNCHECK = 'assets/svg/circle.svg';
 const LINE_THROUGH = 'item__text_line-through';
+
+// Get item from localstorage
+let data = localStorage.getItem('TODO');
+
+// Check if data isn't empty
+if (data) {
+	LIST = JSON.parse(data);
+	id = LIST.length;
+	loadList(LIST);
+} else {
+	LIST = [];
+	id = 0;
+}
+
+// Load item to the user interface
+function loadList(array) {
+	array.forEach(function(item) {
+		addToDo(item.name, item.id, item.done, item.trash);
+	});
+};
 
 // Show todays date
 const todayTime = new Date();
@@ -48,10 +69,8 @@ function addToDo(toDo, id, done, trash) {
 	list.insertAdjacentHTML(position, item);
 }
 
-// Add an item to the list user the enter key
-document.addEventListener('keyup', function(e) {
-	if (e.keyCode == 13) {
-		const toDo = input.value;
+function inputItem() {
+	const toDo = input.value;
 
 		//if input value isn't empty
 		if(toDo) {
@@ -64,11 +83,25 @@ document.addEventListener('keyup', function(e) {
 				trash: false,
 			});
 
+			// Add item from localstorage
+			localStorage.setItem('TODO', JSON.stringify(LIST));
 			id++;
 		}
 
 		input.value = '';
+}
+
+
+// Add an item to the list user the enter key
+document.addEventListener('keyup', function(e) {
+	if (e.keyCode == 13) {
+		inputItem();
 	}
+});
+
+// Add an item to the list user the button
+inputButton.addEventListener('click', function(e) {
+	inputItem();
 });
 
 // Remove to do
@@ -94,4 +127,12 @@ list.addEventListener('click', function(e){
 	}else if(element.classList.contains('button-toggle')){
 		completeToDo(element);
 	}
+
+	localStorage.setItem('TODO', JSON.stringify(LIST));
+});
+
+//refresh localstorage and all tasks
+clear.addEventListener('click', function(e) {
+	list.innerHTML = '';
+	localStorage.clear();
 });
