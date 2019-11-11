@@ -94,28 +94,3 @@ list.addEventListener('click', function(e){
 		completeToDo(element);
 	}
 });
-
-// // Complete to do
-// function completeToDo(element) {
-// 	element.
-// 	LIST[element.id].done = LIST[element.id].done ? false : true;
-// }
-
-// // Remove to do
-// function removeToDo(element){
-// 	element.parentNode.parentNode.removeChild(element.parentNode);
-
-// 	LIST[element.id].trash = true;
-// }
-
-// // Target the element created dynamically
-// list.addEventListener('click', function(e) {
-// 	const element = e.target;
-// 	const elementJod = element.attributes.job.value;
-
-// 	if(elementJod == 'complete') {
-// 		completeToDo(element);
-// 	}else if (elementJod == 'remove') {
-// 		removeToDo(element);
-// 	}
-// });
