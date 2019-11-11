@@ -77,6 +77,7 @@ function removeToDo(element) {
 	LIST[element.id].trash = true;
 }
 
+// Complete to do
 function completeToDo(element) {
 	const elementImg = element.querySelector('img');
 	elementImg.src = LIST[element.id].done ? UNCHECK : CHECK;
