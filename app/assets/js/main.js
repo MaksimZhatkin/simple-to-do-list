@@ -35,8 +35,8 @@ function addToDo(toDo, id, done, trash) {
 	const LINE = done ? LINE_THROUGH : '';
 
 	const item = `<li class="item">
-									<button class="item__button button-toggle" data-job="complete">
-										<img width="30px" src="${DONE}" alt="toggle" id= "${id}">
+									<button class="item__button button-toggle" data-job="complete" id= "${id}">
+										<img width="30px" src="${DONE}" alt="toggle">
 									</button>
 									<p class="item__text ${LINE}">${toDo}</p>
 									<button class="item__button button-remove" data-job="remove" id= "${id}">
@@ -77,6 +77,7 @@ function removeToDo(element) {
 	LIST[element.id].trash = true;
 }
 
+// Complete to do
 function completeToDo(element) {
 	const elementImg = element.querySelector('img');
 	elementImg.src = LIST[element.id].done ? UNCHECK : CHECK;
@@ -94,28 +95,3 @@ list.addEventListener('click', function(e){
 		completeToDo(element);
 	}
 });
-
-// // Complete to do
-// function completeToDo(element) {
-// 	element.
-// 	LIST[element.id].done = LIST[element.id].done ? false : true;
-// }
-
-// // Remove to do
-// function removeToDo(element){
-// 	element.parentNode.parentNode.removeChild(element.parentNode);
-
-// 	LIST[element.id].trash = true;
-// }
-
-// // Target the element created dynamically
-// list.addEventListener('click', function(e) {
-// 	const element = e.target;
-// 	const elementJod = element.attributes.job.value;
-
-// 	if(elementJod == 'complete') {
-// 		completeToDo(element);
-// 	}else if (elementJod == 'remove') {
-// 		removeToDo(element);
-// 	}
-// });
