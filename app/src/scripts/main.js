@@ -35,17 +35,18 @@ function loadList(array) {
 	array.forEach(function(item) {
 		addToDo(item.name, item.id, item.done, item.trash);
 	});
-};
+}
 
 // Show todays date
-const todayTime = new Date();
-const todayDate = new Date();
-const optionsTime = {hour: 'numeric', minute: 'numeric'};
+const optionsTime = {hour: 'numeric', minute: 'numeric', second: 'numeric'};
 const optionsDate = {weekday: 'long', month:'short', day: 'numeric'};
 
-timeElement.innerHTML = todayTime.toLocaleString('ru-RUS', optionsTime);
-dateElement.innerHTML = todayDate.toLocaleDateString('en', optionsDate);
-
+setInterval(() => {
+	const todayTime = new Date();
+	const todayDate = new Date();
+	timeElement.innerHTML = todayTime.toLocaleString('RUS', optionsTime);
+	dateElement.innerHTML = todayDate.toLocaleDateString('en', optionsDate);
+}, 1000);
 
 // Add to do function
 function addToDo(toDo, id, done, trash) {
@@ -72,23 +73,23 @@ function addToDo(toDo, id, done, trash) {
 function inputItem() {
 	const toDo = input.value;
 
-		//if input value isn't empty
-		if(toDo) {
-			addToDo(toDo, id, false, false);
+	//if input value isn't empty
+	if(toDo) {
+		addToDo(toDo, id, false, false);
 
-			LIST.push({
-				name: toDo,
-				id: id,
-				done: false,
-				trash: false,
-			});
+		LIST.push({
+			name: toDo,
+			id: id,
+			done: false,
+			trash: false,
+		});
 
-			// Add item from localstorage
-			localStorage.setItem('TODO', JSON.stringify(LIST));
-			id++;
-		}
+		// Add item from localstorage
+		localStorage.setItem('TODO', JSON.stringify(LIST));
+		id++;
+	}
 
-		input.value = '';
+	input.value = '';
 }
 
 
@@ -100,7 +101,7 @@ document.addEventListener('keyup', function(e) {
 });
 
 // Add an item to the list user the button
-inputButton.addEventListener('click', function(e) {
+inputButton.addEventListener('click', function() {
 	inputItem();
 });
 
@@ -116,7 +117,7 @@ function completeToDo(element) {
 	elementImg.src = LIST[element.id].done ? UNCHECK : CHECK;
 	element.parentNode.querySelector('.item__text').classList.toggle(LINE_THROUGH);
 
-	LIST[element.id].done = LIST[element.id].done ? false : true;
+	LIST[element.id].done = !LIST[element.id].done;
 }
 
 list.addEventListener('click', function(e){
@@ -132,7 +133,7 @@ list.addEventListener('click', function(e){
 });
 
 //refresh localstorage and all tasks
-clear.addEventListener('click', function(e) {
+clear.addEventListener('click', function() {
 	list.innerHTML = '';
 	localStorage.clear();
 });

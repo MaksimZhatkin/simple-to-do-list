@@ -1,10 +1,8 @@
 'use strict';
-
 const gulp				= require('gulp'),
-			sass				= require('gulp-sass'),
-			babel				= require('gulp-babel'),
-			cleanCss		= require('gulp-clean-css'),
-			browserSync = require('browser-sync').create();
+	sass				= require('gulp-sass'),
+	cleanCss		= require('gulp-clean-css'),
+	browserSync = require('browser-sync').create();
 
 function style() {
 	return gulp.src('./app/src/styles/style.scss')
@@ -22,14 +20,14 @@ function scripts() {
 
 function vectors(){
 	return gulp.src('./app/src/vectors/*')
-	.pipe(gulp.dest('./app/assets/svg'))
-	.pipe(browserSync.stream()); 
+		.pipe(gulp.dest('./app/assets/svg'))
+		.pipe(browserSync.stream()); 
 }
 
 function images(){
 	return gulp.src('./app/src/images/**/*')
-	.pipe(gulp.dest('./app/assets/img'))
-	.pipe(browserSync.stream());
+		.pipe(gulp.dest('./app/assets/img'))
+		.pipe(browserSync.stream());
 }
 
 function watch() {
